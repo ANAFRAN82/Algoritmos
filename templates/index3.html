@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de búsqueda</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Cambio de fuente */
+            background-color: #f8f9fa; /* Cambio de color de fondo */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px; /* Aumento de radio de borde */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Aumento del efecto de sombra */
+            text-align: left; /* Alineación a la izquierda */
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff; /* Cambio de color del título */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px; /* Aumento del margen inferior */
+            padding: 15px;
+            background-color: #e9ecef; /* Cambio de color de fondo del elemento de la lista */
+            border-radius: 8px; /* Ajuste de radio de borde */
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Aumento del efecto de sombra */
+            color: #343a40; /* Cambio de color de texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resultados de búsqueda</h1> <!-- Cambio de texto del título -->
+        <ul>
+            {% for estado in resultado %}
+                <li>{{ estado }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Ruta Óptima</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f9;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border: 1px solid #ced4da;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        button {
+            background-color: #007bff;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #resultados {
+            margin-top: 30px;
+        }
+
+        .result-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .resultados-detalle {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-5 text-center">Calculadora de Ruta Óptima</h1>
+        <form id="ruta-form" class="mt-4">
+            <div class="form-group">
+                <label for="partida">Lugar de Partida:</label>
+                <input type="text" class="form-control" id="partida" placeholder="Ingrese el lugar de partida">
+            </div>
+            <div class="form-group">
+                <label for="destino">Lugar de Destino:</label>
+                <input type="text" class="form-control" id="destino" placeholder="Ingrese el lugar de destino">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Calcular Ruta</button>
+        </form>
+
+        <div id="resultados" class="mt-5">
+            <h2 class="result-header">Resultados</h2>
+            <div id="distancia" class="resultados-detalle"></div>
+            <div id="dijkstra" class="resultados-detalle">
+                <h4>Ciudades por donde pasa la ruta:</h4>
+                <ul id="dijkstra-ciudades"></ul>
+            </div>
+            <iframe id="mapa" src="" style="display:none;"></iframe>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#ruta-form').on('submit', function(event) {
+                event.preventDefault();
+
+                const partida = $('#partida').val();
+                const destino = $('#destino').val();
+
+                $.ajax({
+                    url: '/ruta',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        partida: partida,
+                        destino: destino
+                    }),
+                    success: function(response) {
+                        $('#distancia').html('<strong>Distancia:</strong> ' + response.distancia);
+                        mostrarCiudades(response.ciudades_por_pasar, '#dijkstra-ciudades');
+                        $('#mapa').attr('src', '/static/ruta_interactiva.html').show();
+                    },
+                    error: function(error) {
+                        $('#resultados').html('<strong>Error:</strong> No se encontró una ruta válida para los destinos seleccionados.');
+                    }
+                });
+
+                function mostrarCiudades(ciudades, destino) {
+                    $(destino).empty();
+                    ciudades.forEach(function(ciudad) {
+                        $(destino).append('<li>' + ciudad + '</li>');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

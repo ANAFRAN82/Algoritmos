@@ -1,0 +1,19 @@
+<!-- seleccion_ciudades.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecciona Ciudades</title>
+</head>
+<body>
+    <h1>Selecciona las ciudades para calcular la ruta óptima</h1>
+    <form method="post" action="/">
+        {% for ciudad in ciudades %}
+        <input type="checkbox" name="ciudades" value="{{ ciudad }}"> {{ ciudad }}<br>
+        {% endfor %}
+        <br>
+        <button type="submit">Calcular Ruta Óptima</button>
+    </form>
+</body>
+</html>

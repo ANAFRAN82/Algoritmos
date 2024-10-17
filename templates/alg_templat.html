@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado del TSP</title>
+</head>
+<body>
+    <h1>Resultado del Problema del Viajante (TSP)</h1>
+    <h2>Ruta Óptima:</h2>
+    <ul>
+        {% for ciudad in ruta %}
+            <li>{{ ciudad }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Distancia Total: {{ distancia_total }}</h2>
+</body>
+</html>

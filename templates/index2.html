@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de la búsqueda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            color: green; /* Cambio de color a verde */
+            text-align: left; /* Alineación a la izquierda */
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #666;
+            text-align: left;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+        li {
+            margin-bottom: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .error-message {
+            color: #ff0000;
+            font-style: italic;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vuelos con busqueda en profundidad iterativa</h1>
+        {% if resultado %}
+            <p>La ruta encontrada es:</p>
+            <ul>
+                {% for ciudad in resultado %}
+                    <li>{{ ciudad }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="error-message">{{ mensaje }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+
